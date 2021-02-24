@@ -6,7 +6,7 @@ namespace Calculadora
     {
         public int Suma(int a, int b)
         {
-            return a + b; asdfasf
+            return a + b;
         }
     }
 }
