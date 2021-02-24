@@ -25,6 +25,13 @@ pipeline {
             }
         }
         stage("deploy") {
+            when {
+                anyOf {
+                    expression {
+                        ${NUMERO}.Contains("9")
+                    }
+                }
+            }
             steps {
                 echo "Desplegar"
             }
