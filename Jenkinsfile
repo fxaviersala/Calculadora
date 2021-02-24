@@ -6,5 +6,10 @@ pipeline {
                 sh "dotnet build"
             }
         }
+        stage("Tests unitaris") {
+            steps {
+                sh "dotnet test"
+            }
+        }
     }
 }
