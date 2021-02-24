@@ -1,8 +1,12 @@
 pipeline {
     agent any
+    environment {
+        NUMERO = "UdG-${BUILD_NUMBER}"
+    }
     stages {
         stage("compilar") {
             steps {
+                echo "$NUMERO"
                 sh "dotnet build"
             }
         }
