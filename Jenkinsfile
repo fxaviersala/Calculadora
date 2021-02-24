@@ -27,9 +27,7 @@ pipeline {
         stage("deploy") {
             when {
                 anyOf {
-                    expression {
-                        return env.NUMERO.contains("11")
-                    }
+                    branch "main"
                 }
             }
             steps {
