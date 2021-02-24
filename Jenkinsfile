@@ -28,7 +28,7 @@ pipeline {
             when {
                 anyOf {
                     expression {
-                        return env.NUMERO.Contains("11")
+                        return env.NUMERO.contains("11")
                     }
                 }
             }
