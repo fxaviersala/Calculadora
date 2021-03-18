@@ -15,30 +15,24 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: FranzDiebold/github-env-vars-action@v2
+
     - name: Setup .NET Core 5.0
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 5.0.100
+
     - name: Install dependencies
       run: dotnet restore
+
     - name: Build
       run: dotnet build --configuration Release --no-restore
 
-    - name: Test
-      run: dotnet test --filter="Category=Unit"
+    - name: Testing Calculadora
+      run: dotnet test --logger trx --results-directory "TestResults"
 
-    - name: Testing CalculadoraTest
-      uses: zyborg/dotnet-tests-report@v1
+    - name: Upload dotnet test results
+      uses: actions/upload-artifact@v2
       with:
-        project_path: CalculadoraTest
-        report_name: CalculadoraTest
-        report_title: Calculadora tests
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-
-    - name: Testing CalculadoraTest2
-      uses: zyborg/dotnet-tests-report@v1
-      with:
-        project_path: CalculadoraTest2
-        report_name: CalculadoraTest
-        report_title: Calculadora tests
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        name: dotnet-results
+        path: TestResults
+      if: ${{ always() }}
