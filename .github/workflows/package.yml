@@ -1,0 +1,38 @@
+name: .NET Core
+
+on:
+  push:
+    branches:
+      - "*"
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - uses: FranzDiebold/github-env-vars-action@v2
+    - name: Setup .NET Core 5.0
+      uses: actions/setup-dotnet@v1.7.2
+      with:
+        dotnet-version: 5.0.100
+    - name: Add Nuget Source to GitHub Packages
+      run: dotnet nuget add source -n GitHub https://nuget.pkg.github.com/$CI_REPOSITORY_OWNER/index.json  -u ${{ secrets.USER_PACKAGES }} -p ${{ secrets.ALIGA_PACKAGES }} --store-password-in-clear-text
+    - name: Install dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+
+    - name: Test
+      run: dotnet test --filter="Category=Unit"
+
+    - name: Testing
+      uses: zyborg/dotnet-tests-report@v1
+      with:
+        project_path: CalculadoraTest
+        report_name: CalculadoraTest1
+        report_title: Calculadora tests
+        github_token: ${{ secrets.GITHUB_TOKEN }}
