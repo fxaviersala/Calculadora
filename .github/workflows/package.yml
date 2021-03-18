@@ -30,9 +30,9 @@ jobs:
     - name: Testing Calculadora
       run: dotnet test --logger trx --results-directory "TestResults"
 
-    - name: Upload dotnet test results
-      uses: actions/upload-artifact@v2
+    - name: Parse Trx files
+      uses: NasAmin/trx-parser@v0.0.3
+      id: trx-parser
       with:
-        name: dotnet-results
-        path: TestResults
-      if: ${{ always() }}
+        TRX_PATH: ${{ github.workspace }}/TestResults
+        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
