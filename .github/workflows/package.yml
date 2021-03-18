@@ -27,12 +27,10 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
 
-    - name: Testing Calculadora
-      run: dotnet test --logger trx --results-directory "TestResults"
-
-    - name: Parse Trx files
-      uses: NasAmin/trx-parser@v0.0.3
-      id: trx-parser
+    - name: Testing CalculadoraTest
+      uses: zyborg/dotnet-tests-report@v1
       with:
-        TRX_PATH: ${{ github.workspace }}/TestResults
-        REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        project_path: CalculadoraTes*
+        report_name: CalculadoraTest1
+        report_title: Calculadora tests
+        github_token: ${{ secrets.GITHUB_TOKEN }}
