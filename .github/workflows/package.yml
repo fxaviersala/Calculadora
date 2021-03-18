@@ -19,8 +19,6 @@ jobs:
       uses: actions/setup-dotnet@v1.7.2
       with:
         dotnet-version: 5.0.100
-    - name: Add Nuget Source to GitHub Packages
-      run: dotnet nuget add source -n GitHub https://nuget.pkg.github.com/$CI_REPOSITORY_OWNER/index.json  -u ${{ secrets.USER_PACKAGES }} -p ${{ secrets.ALIGA_PACKAGES }} --store-password-in-clear-text
     - name: Install dependencies
       run: dotnet restore
     - name: Build
