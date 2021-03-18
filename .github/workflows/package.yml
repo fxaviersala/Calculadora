@@ -30,7 +30,15 @@ jobs:
     - name: Testing CalculadoraTest
       uses: zyborg/dotnet-tests-report@v1
       with:
-        project_path: CalculadoraTes*
+        project_path: CalculadoraTest1
         report_name: CalculadoraTest1
-        report_title: Calculadora tests
+        report_title: Calculadora tests 1
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Testing CalculadoraTest2
+      uses: zyborg/dotnet-tests-report@v1
+      with:
+        project_path: CalculadoraTest2
+        report_name: CalculadoraTest2
+        report_title: Calculadora tests 2
         github_token: ${{ secrets.GITHUB_TOKEN }}
